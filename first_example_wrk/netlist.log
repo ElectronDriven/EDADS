@@ -1,0 +1,65 @@
+; Top Design: "first_example_lib:cell_4:schematic"
+; Netlisted using Hierarchy Policy: "Standard"
+
+Options ResourceUsage=yes UseNutmegFormat=no EnableOptim=no TopDesignName="first_example_lib:cell_4:schematic" DcopOutputNodeVoltages=yes DcopOutputPinCurrents=yes DcopOutputAllSweepPoints=no DcopOutputDcopType=4
+R:R4  e 0 R=1 kOhm Noise=yes 
+R:R2  N__0 base R=47 kOhm Noise=yes 
+R:R3  base 0 R=8.2 kOhm Noise=yes 
+R:R1  in N__3 R=560 Ohm Noise=yes 
+C:C1  N__3 base C=1.0 uF 
+"BJTM1":BJT1  N__5 base e Mode=1 Noise=yes 
+V_Source:SRC1  in 0 Type="VtSine" V[1]=if (_tr_state == 0) then (2 mV)*exp(j*2*pi*((0)/360-(0 nsec)*(1 kHz)-.25)-(time-(0 nsec))*(0))*step((time-(0 nsec))+tinyreal) else 0 endif Freq[1]=1 kHz Vdc=0 mV V_Tran=if (_tr_state == 1) then damped_sin(time,0,2 mV,1 kHz,max(0,0 nsec),0,0) else (2 mV)*step(((0 nsec)-time)-tinyreal)*sin(pi*(0)/180) endif SaveCurrent=1 
+model BJTM1 BJT NPN=1 PNP=0 Lateral=0 RbModel=0 Approxqb=1 
+V_Source:SRC3  N__0 0 Type="V_DC" Vdc=15 V SaveCurrent=1 
+V_Source:SRC2  N__9 0 Type="V_DC" Vdc=15 V SaveCurrent=1 
+Tran:Tran1 StartTime=0.0 nsec StopTime=10 msec MaxTimeStep=100 nsec LimitStepForTL=yes TimeStepControl=2 TruncTol=7.0 ChargeTol=1.0e-14 IntegMethod=0 MaxGearOrder=2 \
+Mu=0.5 MaxOrder=4 Freq[1]=1.0 GHz Order[1]=3 HB_Window=no \
+HB_Sol=no ImpApprox=no ShortTL_Delay=1.0 psec ImpMode=1 UseInitCond=no \
+LoadGminDC=no CheckKCL=yes CheckOnlyDeltaV=yes OverloadAlert=no DeviceBypass=no \
+MaxIters=10 MaxItersDC=200 DevOpPtLevel=0 StatusLevel=2 OutputAllPoints=yes \
+NoiseScale=1 ImpEnforcePassivity=yes \
+OutputPlan="Tran1_Output" 
+
+OutputPlan:Tran1_Output \
+      Type="Output" \
+      UseNodeNestLevel=yes \
+      NodeNestLevel=2 \
+      UseEquationNestLevel=yes \
+      EquationNestLevel=2 \
+      UseSavedEquationNestLevel=yes \
+      SavedEquationNestLevel=2 \
+      UseDeviceCurrentNestLevel=no \
+      DeviceCurrentNestLevel=0 \
+      DeviceCurrentDeviceType="All" \
+      DeviceCurrentSymSyntax=yes \
+      UseCurrentNestLevel=yes \
+      CurrentNestLevel=999 \
+      UseDeviceVoltageNestLevel=no \
+      DeviceVoltageNestLevel=0 \
+      DeviceVoltageDeviceType="All"
+
+R:R6  N__9 N__5 R=2.2 kOhm Noise=yes 
+R:R5  load 0 R=2.2 kOhm Noise=yes 
+C:C2  N__5 load C=1 uF 
+C:C3  e 0 C=300 uF 
+DC:DC1 StatusLevel=2 DevOpPtLevel=0 UseFiniteDiff=no PrintOpPoint=no Restart=1 \
+OutputPlan="DC1_Output" 
+
+OutputPlan:DC1_Output \
+      Type="Output" \
+      UseNodeNestLevel=yes \
+      NodeNestLevel=2 \
+      UseEquationNestLevel=yes \
+      EquationNestLevel=2 \
+      UseSavedEquationNestLevel=yes \
+      SavedEquationNestLevel=2 \
+      UseDeviceCurrentNestLevel=no \
+      DeviceCurrentNestLevel=0 \
+      DeviceCurrentDeviceType="All" \
+      DeviceCurrentSymSyntax=yes \
+      UseCurrentNestLevel=yes \
+      CurrentNestLevel=999 \
+      UseDeviceVoltageNestLevel=no \
+      DeviceVoltageNestLevel=0 \
+      DeviceVoltageDeviceType="All"
+
