@@ -16,3 +16,10 @@
 *.cfg
 *.cfg
 *.ini
+*.opt
+*.prf
+*.defs
+student/student_lib/.oalib
+*.db
+*.wrkstate
+*.cfg
